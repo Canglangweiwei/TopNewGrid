@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TopNewGrid</string>
+
+    <string name="press_twice_exit">再次按返回键退出</string>
+    <string name="exit_directly">直接退出</string>
+
+    <string name="drawer_btn_rss">频道管理</string>
+    <string name="subscribe_my_category">我的频道</string>
+    <string name="subscribe_more_category">更多频道</string>
+    <string name="subscribe_manager_category_info">单击增删频道</string>
+    <string name="subscribe_manager_category_info_2">单击增删频道，长按拖拽排序</string>
+
+</resources>
