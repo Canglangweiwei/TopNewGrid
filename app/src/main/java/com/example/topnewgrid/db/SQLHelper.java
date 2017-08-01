@@ -30,9 +30,9 @@ public class SQLHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // TODO 创建数据库后，对数据库的操作
         String sql = "create table if not exists " + TABLE_CHANNEL
-                + "(_id INTEGER PRIMARY KEY AUTOINCREMENT, " + ID
-                + " INTEGER , " + NAME + " TEXT , " + ORDER_ID + " INTEGER , "
-                + SELECTED + " SELECTED)";
+                + "(_id integer primary key autoincrement, " + ID
+                + " integer , " + NAME + " text , " + ORDER_ID + " integer , "
+                + SELECTED + " selected)";
         db.execSQL(sql);
     }
 

@@ -86,6 +86,7 @@ public class ChannelActivity extends BaseActivity implements AdapterView.OnItemC
 
         userAdapter = new DragAdapter(this, userChannelList);
         userGridView.setAdapter(userAdapter);
+
         otherAdapter = new OtherAdapter(this, otherChannelList);
         otherGridView.setAdapter(otherAdapter);
     }
@@ -131,11 +132,10 @@ public class ChannelActivity extends BaseActivity implements AdapterView.OnItemC
                                     otherGridView.getChildAt(
                                             otherGridView.getLastVisiblePosition())
                                             .getLocationInWindow(endLocation);
-                                    MoveAnim(moveImageView, startLocation,
-                                            endLocation, channel, userGridView);
+                                    MoveAnim(moveImageView, startLocation, endLocation, userGridView);
                                     userAdapter.setRemove(position);
-                                } catch (Exception ignored) {
-
+                                } catch (Exception e) {
+                                    e.printStackTrace();
                                 }
                             }
                         }, 50L);
@@ -164,11 +164,10 @@ public class ChannelActivity extends BaseActivity implements AdapterView.OnItemC
                                 userGridView.getChildAt(
                                         userGridView.getLastVisiblePosition())
                                         .getLocationInWindow(endLocation);
-                                MoveAnim(moveImageView, startLocation, endLocation,
-                                        channel, otherGridView);
+                                MoveAnim(moveImageView, startLocation, endLocation, otherGridView);
                                 otherAdapter.setRemove(position);
-                            } catch (Exception ignored) {
-
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
                     }, 50L);
@@ -182,9 +181,7 @@ public class ChannelActivity extends BaseActivity implements AdapterView.OnItemC
     /**
      * 点击ITEM移动动画
      */
-    private void MoveAnim(View moveView, int[] startLocation,
-                          int[] endLocation, final ChannelItem moveChannel,
-                          final GridView clickGridView) {
+    private void MoveAnim(View moveView, int[] startLocation, int[] endLocation, final GridView clickGridView) {
         int[] initLocation = new int[2];
         // 获取传递过来的VIEW的坐标
         moveView.getLocationInWindow(initLocation);

@@ -29,14 +29,14 @@ public class ChannelDao implements ChannelDaoInterface {
         try {
             database = helper.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put("name", item.getName());
-            values.put("id", item.getId());
-            values.put("orderId", item.getOrderId());
-            values.put("selected", item.getSelected());
+            values.put(SQLHelper.NAME, item.getName());
+            values.put(SQLHelper.ID, item.getId());
+            values.put(SQLHelper.ORDER_ID, item.getOrderId());
+            values.put(SQLHelper.SELECTED, item.getSelected());
             id = database.insert(SQLHelper.TABLE_CHANNEL, null, values);
             flag = (id != -1);
-        } catch (Exception ignored) {
-
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (database != null) {
                 database.close();
@@ -54,8 +54,8 @@ public class ChannelDao implements ChannelDaoInterface {
             database = helper.getWritableDatabase();
             count = database.delete(SQLHelper.TABLE_CHANNEL, whereClause, whereArgs);
             flag = (count > 0);
-        } catch (Exception ignored) {
-
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (database != null) {
                 database.close();
@@ -73,8 +73,8 @@ public class ChannelDao implements ChannelDaoInterface {
             database = helper.getWritableDatabase();
             count = database.update(SQLHelper.TABLE_CHANNEL, values, whereClause, whereArgs);
             flag = (count > 0);
-        } catch (Exception ignored) {
-
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (database != null) {
                 database.close();
@@ -87,7 +87,7 @@ public class ChannelDao implements ChannelDaoInterface {
     public Map<String, String> viewCache(String selection, String[] selectionArgs) {
         SQLiteDatabase database = null;
         Cursor cursor;
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         try {
             database = helper.getReadableDatabase();
             cursor = database.query(true, SQLHelper.TABLE_CHANNEL, null, selection,
@@ -104,8 +104,8 @@ public class ChannelDao implements ChannelDaoInterface {
                     map.put(cols_name, cols_values);
                 }
             }
-        } catch (Exception ignored) {
-
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (database != null) {
                 database.close();
@@ -116,7 +116,7 @@ public class ChannelDao implements ChannelDaoInterface {
 
     @Override
     public List<Map<String, String>> listCache(String selection, String[] selectionArgs) {
-        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> list = new ArrayList<>();
         SQLiteDatabase database = null;
         Cursor cursor;
         try {
@@ -124,9 +124,8 @@ public class ChannelDao implements ChannelDaoInterface {
             cursor = database.query(false, SQLHelper.TABLE_CHANNEL, null, selection, selectionArgs, null, null, null, null);
             int cols_len = cursor.getColumnCount();
             while (cursor.moveToNext()) {
-                Map<String, String> map = new HashMap<String, String>();
+                Map<String, String> map = new HashMap<>();
                 for (int i = 0; i < cols_len; i++) {
-
                     String cols_name = cursor.getColumnName(i);
                     String cols_values = cursor.getString(cursor
                             .getColumnIndex(cols_name));
@@ -137,8 +136,8 @@ public class ChannelDao implements ChannelDaoInterface {
                 }
                 list.add(map);
             }
-        } catch (Exception ignored) {
-
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (database != null) {
                 database.close();
@@ -147,8 +146,9 @@ public class ChannelDao implements ChannelDaoInterface {
         return list;
     }
 
+    @Override
     public void clearFeedTable() {
-        String sql = "DELETE FROM " + SQLHelper.TABLE_CHANNEL + ";";
+        String sql = "delete from " + SQLHelper.TABLE_CHANNEL + ";";
         SQLiteDatabase db = helper.getWritableDatabase();
         db.execSQL(sql);
         revertSeq();

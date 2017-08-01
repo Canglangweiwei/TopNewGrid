@@ -34,6 +34,8 @@ public class ChannelManager {
     static {
         defaultUserChannels = new ArrayList<ChannelItem>();
         defaultOtherChannels = new ArrayList<ChannelItem>();
+
+        // 我的频道
         defaultUserChannels.add(new ChannelItem(1, "推荐", 1, 1));
         defaultUserChannels.add(new ChannelItem(2, "热点", 2, 1));
         defaultUserChannels.add(new ChannelItem(3, "娱乐", 3, 1));
@@ -41,6 +43,8 @@ public class ChannelManager {
         defaultUserChannels.add(new ChannelItem(5, "科技", 5, 1));
         defaultUserChannels.add(new ChannelItem(6, "体育", 6, 1));
         defaultUserChannels.add(new ChannelItem(7, "军事", 7, 1));
+
+        // 更多频道
         defaultOtherChannels.add(new ChannelItem(8, "财经", 1, 0));
         defaultOtherChannels.add(new ChannelItem(9, "汽车", 2, 0));
         defaultOtherChannels.add(new ChannelItem(10, "房产", 3, 0));
@@ -88,7 +92,7 @@ public class ChannelManager {
             userExist = true;
             List<Map<String, String>> maplist = (List) cacheList;
             int count = maplist.size();
-            List<ChannelItem> list = new ArrayList<ChannelItem>();
+            List<ChannelItem> list = new ArrayList<>();
             for (int i = 0; i < count; i++) {
                 ChannelItem navigate = new ChannelItem();
                 navigate.setId(Integer.valueOf(maplist.get(i).get(SQLHelper.ID)));
@@ -110,7 +114,7 @@ public class ChannelManager {
      */
     public List<ChannelItem> getOtherChannel() {
         Object cacheList = channelDao.listCache(SQLHelper.SELECTED + "= ?", new String[]{"0"});
-        List<ChannelItem> list = new ArrayList<ChannelItem>();
+        List<ChannelItem> list = new ArrayList<>();
         if (cacheList != null && !((List) cacheList).isEmpty()) {
             List<Map<String, String>> maplist = (List) cacheList;
             int count = maplist.size();
