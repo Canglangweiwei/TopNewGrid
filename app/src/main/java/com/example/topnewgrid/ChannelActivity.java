@@ -71,24 +71,30 @@ public class ChannelActivity extends BaseActivity implements AdapterView.OnItemC
 
     @Override
     protected void initUi() {
+        userAdapter = new DragAdapter(this);
+        userGridView.setAdapter(userAdapter);
 
+        otherAdapter = new OtherAdapter(this);
+        otherGridView.setAdapter(otherAdapter);
     }
 
     @Override
     protected void initDatas() {
-        // 用户栏目列表
-        ArrayList<ChannelItem> userChannelList = ((ArrayList<ChannelItem>) ChannelManager.getManage(
-                AppApplication.get().getSQLHelper()).getUserChannel());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // 用户栏目列表
+                ArrayList<ChannelItem> userChannelList = ((ArrayList<ChannelItem>) ChannelManager.getManage(
+                        AppApplication.get().getSQLHelper()).getUserChannel());
 
-        // 其它栏目列表
-        ArrayList<ChannelItem> otherChannelList = ((ArrayList<ChannelItem>) ChannelManager.getManage(
-                AppApplication.get().getSQLHelper()).getOtherChannel());
+                // 其它栏目列表
+                ArrayList<ChannelItem> otherChannelList = ((ArrayList<ChannelItem>) ChannelManager.getManage(
+                        AppApplication.get().getSQLHelper()).getOtherChannel());
 
-        userAdapter = new DragAdapter(this, userChannelList);
-        userGridView.setAdapter(userAdapter);
-
-        otherAdapter = new OtherAdapter(this, otherChannelList);
-        otherGridView.setAdapter(otherAdapter);
+                userAdapter.setData(userChannelList);
+                otherAdapter.setData(otherChannelList);
+            }
+        }, 1200);
     }
 
     @Override

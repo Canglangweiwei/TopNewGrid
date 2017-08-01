@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.topnewgrid.R;
 import com.example.topnewgrid.bean.ChannelItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("ALL")
@@ -31,9 +32,15 @@ public class OtherAdapter extends BaseAdapter {
      */
     public int remove_position = -1;
 
-    public OtherAdapter(Context context, List<ChannelItem> channelList) {
+    public OtherAdapter(Context context) {
         this.context = context;
+        this.channelList = new ArrayList<>();
+    }
+
+    public void setData(List<ChannelItem> channelList){
+        if (channelList == null || channelList.size() == 0) return;
         this.channelList = channelList;
+        notifyDataSetChanged();
     }
 
     @Override
